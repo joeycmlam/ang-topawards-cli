@@ -1,0 +1,66 @@
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  /* Create two equal columns that floats next to each other */
+  .column {
+    float: left;
+    width: 50%;
+    padding: 10px;
+    height: 300px; /* Should be removed. Only for demonstration */
+  }
+
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+</style>
+
+
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1>
+    Welcome to {{ title }}!
+  </h1>
+</div>
+
+<div>
+  <input type="text" (keyup)="upSearchItem($event)">
+  <button (click)="healthcheck()">Test</button>
+  <button (click)="getSearchImages()" [disabled]="isRunnable">Search</button>
+  <button (click)="prevImage()" [disabled]="isRunnable || !isShow()">Prev</button>
+  <button (click)="nextImage()" [disabled]="isRunnable || !isShow()">Next</button>
+  <button (click)="getPredictUrl()" [disabled]="isRunnable || !isShow()">Predict</button>
+</div>
+
+<div>
+  <p></p>
+  <span class="btn btn-default btn-file">
+    Upload Image:
+    <input type="file"accept='image/*' (change)="preview($event)" />
+    <button (click)="predictFile()" [disabled]="isRunnable" >Submit</button>
+    <p *ngIf="isShow()">Counter: {{image_idx+1}} out of {{urls.length}}</p>
+  </span>
+</div>
+
+<!--<form action="http://127.0.0.1:80/uploadimage" method="post" enctype="multipart/form-data" >-->
+      <!--<span class="btn btn-default btn-file">-->
+        <!--Browse <input type="file" name="image" (change)="preview($event)">-->
+      <!--</span>-->
+  <!--<input type="submit" value="Upload your image" class="btn btn-primary">-->
+<!--</form>-->
+
+<div class="row">
+  <div class="column">
+    <h2>Image</h2>
+    <!--<img *ngIf="isShowImage()" [src]="image_url" class="w3-round-small" style="width:100%" >-->
+    <img src={{image_url}} style="width: 100%">
+  </div>
+  <div class="column">
+    <h2>Concepts</h2>
+    <p> {{concepts}} </p>
+  </div>
+</div>
